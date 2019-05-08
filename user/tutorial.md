@@ -1,112 +1,171 @@
----
-title: Travis CI Tutorial
-layout: en
-redirect_from:
-  - /user/getting-started/
----
+package вуплр2;
+import java.util.Scanner;
+public class ВуПЛР2 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Введите номер задания: ");
+        int n = VvodI(in);
+        switch (n){
+            case 1: Zadanie1(in); break;
+            case 2:Zadanie2(in);break;
+            case 3:Zadanie3(in);break;
+            case 4:Zadanie4(in);break;
+            case 5:Zadanie5(in);break;
+        }
+        
+     
+        in.close();
+    }
+    public static void Zadanie1(Scanner in){
+        int a,b,c;
+        System.out.print("Задание 1.\nВведите натуральное число a: ");
+        a=VvodI(in);
+        System.out.print("Введите натуральное число b: ");
+        b=VvodI(in);
+        System.out.print("Введите натуральное число c: ");
+        c=VvodI(in);
+         if ((a + b <= c) || (a + c <= b) || (b + c <=a)){
+              System.out.print("Треугольник нельзя построить");
+         }
+         else if ((a == b) & (a == c) & (b == c)){
+              System.out.print("Треугольник равносторонний");
+         }else if ((a==b)||(a==c)||(b==c)) {
+                   System.out.print("Треугольник равнобедренный");
+              }
+              else {
+                  System.out.print("Треугольник иной");
+              }
+         
+    }
+    public static void Zadanie2(Scanner in){
+        int a,b, max=0;
+        System.out.print("\nЗадание 2.\nВведите натуральное число a: ");
+        a=VvodI(in);
+        System.out.print("Введите натуральное число b: ");
+        b=VvodI(in);
+        if (b>a){//делитель дыух чисел не будет больше меньшего из чисел
+            for (int i=1;i<=a;i++){//перебор делителей
+                if (a%i==0 && b%i==0 && i>max) max=i;//нахождение максимального
+            }System.out.print("\nНаибольший делитель числа "+a+" и числа "+b+" равен "+max);
+        }else{//если число a больше b
+            for (int i=1;i<=b;i++){
+                if (a%i==0 && b%i==0 && i>max) max=i;
+            }System.out.println("\nНаибольший делитель числа "+a+" и числа "+b+" равен "+max);
+        }
+    }
+    public static void Zadanie3(Scanner in){
+        double x,y;
+        System.out.print("\nЗадание 3.\nВведите число x: ");
+        x=VvodD(in," "," ");
+        System.out.println("\nПожалуйста, подождите пока высчитывается ряд.");
+        y=Math.sin(x);//первое значение
+        while(true){
+            y=Math.sin(y);//последующие значения
+            if (Math.abs(y)<Math.pow(10,-4)){//если значение меньше по модулю 10^-4,нужно подождать, лучше брать маленькое число
+                System.out.println("\nЧисло меньше 10^-4: "+y);
+                break;//выход из цикла
+            }
+        }
+    }
+    public static void Zadanie4(Scanner in){
+        double m,f1=1,f2=1,f;
+        System.out.print("\nЗадание 4.\nВведите число m>1: ");
+        m = VvodD(in," больше 1 ","-.*|0|1");
+        while(true){
+            f=f1+f2;
+            f1=f2; f2=f;
+            if (f>m){
+                System.out.println("\n"+f);
+                break;
+            } 
+        }
+    }
+    public static void Zadanie5(Scanner in){
+        int a,b;
+        System.out.print("\nЗадание 5.\nВведите натуральное число a: "); 
+        a = VvodI(in);
+        System.out.println("Простые делители:");
+        System.out.print("1 ");
+        for (int i=2;i<=a;i++){
+            b=0;
+            if (a%i==0){//находим делитель 
+                for (int k=2;k<=i/2;k++){//проверяем сколько делителей имеет делитель, кроме деления на единицу и на себя
+                    if (i%k==0){
+                        b++;
+                    } 
+                }
+                if (b==0){//если делителей нет, кроме как на 1 и на само себя, то это простой делитель и нам подходит
+                    System.out.print(i+" ");
+                }
+            }
+        }        
+    }
+    
+    //МЕТОДЫ ВВОДА
+    public static int VvodI(Scanner in){//ввод целых чисел
+        int chet;
+        for ( chet=4;(!in.hasNextInt() || in.hasNext("-.*|0"))&&  chet>0;chet--){ //цикл,который отвечает за проверку
+            if((chet-2)<0){//избегание лишнего считывания
+                chet=0;
+                break;
+            }
+            switch (chet-1){
+                case 1: if (in.next().indexOf('.')!= -1){
+                            System.out.println("Введите число через запятую, попытки не снимаются, поэтому осталась "+(chet-1)+" попытка.");
+                        }else{
+                            System.out.println("Введите численное значение больше нуля, осталась "+(chet-1)+" попытка.");
+                        }break;
+                case 2: if (in.next().indexOf('.')!= -1){
+                            System.out.println("Введите число через запятую, попытки не снимаются, поэтому осталось "+(chet-1)+" попытки.");
+                        }else{
+                            System.out.println("Введите численное значение больше нуля, осталось "+(chet-1)+" попытки.");
+                        }break;
+                case 3: if (in.next().indexOf('.')!= -1){
+                            System.out.println("Введите число через запятую, попытки не снимаются, поэтому осталось "+(chet-1)+" попытки.");
+                        }else{
+                            System.out.println("Введите численное значение больше нуля, осталось "+(chet-1)+" попытки.");
+                        }break;
+            }
+        }
+        if(chet<=0){ //проверка остаточных попыток
+            System.out.println("Попытки закончились." );
+            System.exit(0);
+        }
+        int k = in.nextInt();
+        return k;
+    }
+    public static double VvodD(Scanner in, String sms,String ogr){//ввод вещественных чисел
+        int chet;
+        for ( chet=4;(!in.hasNextDouble() || in.hasNext(ogr))&&  chet>0;chet--){ //цикл,который отвечает за проверку
+            if((chet-2)<0){//избегание лишнего считывания
+                chet=0;
+                break;
+            }
+            switch (chet-1){
+                case 1: if (in.next().indexOf('.')!= -1){
+                            System.out.println("Введите число через запятую, попытки не снимаются, поэтому осталась "+(chet-1)+" попытка.");
+                        }else{
+                            System.out.println("Введите численное значение"+ sms+",осталась "+(chet-1)+" попытка.");
+                        }break;
+                case 2: if (in.next().indexOf('.')!= -1){
+                            System.out.println("Введите число через запятую, попытки не снимаются, поэтому осталось "+(chet-1)+" попытки.");
+                        }else{
+                            System.out.println("Введите численное значение" +sms+",осталось "+(chet-1)+" попытки.");
+                        }break;
+                case 3: if (in.next().indexOf('.')!= -1){
+                            System.out.println("Введите число через запятую, попытки не снимаются, поэтому осталось "+(chet-1)+" попытки.");
+                        }else{
+                            System.out.println("Введите численное значение"+ sms+",осталось "+(chet-1)+" попытки.");
+                        }break;
+            }
+        }
+        if(chet<=0){ //проверка остаточных попыток
+            System.out.println("Попытки закончились." );
+            System.exit(0);
+        }
+        double k = in.nextDouble();
+        return k;
+    }
+    
+}
 
-This is a very short guide to using Travis CI with your GitHub hosted code repository.
-If you're new to continuous integration or would like some more information on
-what Travis CI does, start with [Core Concepts for Beginners](/user/for-beginners)
-instead.
-
-## Prerequisites
-
-To start using Travis CI, make sure you have:
-
- * A [GitHub](https://github.com/) account.
- * Owner permissions for a project [hosted on GitHub](https://help.github.com/categories/importing-your-projects-to-github/).
-
-## To get started with Travis CI
-
-1. Go to [Travis-ci.com](https://travis-ci.com) and [*Sign up with GitHub*](https://travis-ci.com/signin).
-
-2. Accept the Authorization of Travis CI. You'll be redirected to GitHub.
-
-3. Click the green *Activate* button, and select the repositories you want to use with Travis CI.
-
-4. Add a `.travis.yml` file to your repository to tell Travis CI what to do.
-
-   The following example specifies a Ruby project that should
-   be built with Ruby 2.2 and the latest versions of JRuby.
-
-   ```yaml
-   language: ruby
-   rvm:
-    - 2.2
-    - jruby
-   ```
-   {: data-file=".travis.yml"}
-
-   The defaults for Ruby projects are `bundle install` to [install dependencies](/user/job-lifecycle/#customizing-the-installation-phase),
-   and `rake` to build the project.
-
-5. Add the `.travis.yml` file to git, commit and push, to trigger a Travis CI build:
-
-   > Travis only runs builds on the commits you push *after* you've added a `.travis.yml` file.
-
-6. Check the build status page to see if your build [passes or fails](/user/job-lifecycle/#breaking-the-build), according to the return status of the build command by visiting the [Travis CI](https://travis-ci.com/auth) and selecting your repository.
-
-
-## Selecting a different programming language
-
-Use one of these common languages:
-
-```yaml
-language: ruby
-```
-{: data-file=".travis.yml"}
-
-```yaml
-language: java
-```
-{: data-file=".travis.yml"}
-
-```yaml
-language: node_js
-```
-{: data-file=".travis.yml"}
-
-```yaml
-language: python
-```
-{: data-file=".travis.yml"}
-
-```yaml
-language: php
-```
-{: data-file=".travis.yml"}
-
-If you have tests that need to run on macOS, or your project uses Swift or
-Objective-C, use our macOS environment:
-
-```yaml
-os: osx
-```
-{: data-file=".travis.yml"}
-
-> You do *not* necessarily need to use macOS if you develop on a Mac.
-> macOS is required only if you need Swift, Objective-C or other
-> macOS-specific software.
-
-Travis CI supports many [programming languages](/user/languages/).
-
-## More than running tests
-
-Travis CI isn't just for running tests, there are many others things you can do with your code:
-
-* deploy to [GitHub pages](/user/deployment/pages/)
-* run apps on [Heroku](/user/deployment/heroku/)
-* upload [RubyGems](/user/deployment/rubygems/)
-* send [notifications](/user/notifications/)
-
-## Further Reading
-
-Read more about
-
-* [customizing your build](/user/customizing-the-build)
-* [security best practices](/user/best-practices-security/)
-* [build stages](/user/build-stages/)
-* [build matrixes](/user/customizing-the-build/#build-matrix)
-* [installing dependencies](/user/installing-dependencies)
-* [setting up databases](/user/database-setup/)
